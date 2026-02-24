@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import { FadeIn } from "../animations/FadeIn";
 import { DynamicIcon } from "../ui/dynamic-icon";
 
@@ -53,26 +54,39 @@ export function Services() {
           </p>
         </FadeIn>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {services.map((service, idx) => (
-            <FadeIn key={service.id} delay={idx * 0.1}>
-              <div className="glass h-full p-8 rounded-3xl border border-white/[0.05] hover:-translate-y-2 hover:border-primary/40 transition-all duration-300 group relative overflow-hidden">
-                <div className="absolute top-0 right-0 -mr-8 -mt-8 w-32 h-32 bg-primary/20 blur-3xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+        <motion.div
+          variants={{ hidden: {}, show: { transition: { staggerChildren: 0.07 } } }}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-60px" }}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+        >
+          {services.map((service) => (
+            <motion.div
+              key={service.id}
+              variants={{ hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0, transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] } } }}
+              whileHover={{ y: -8 }}
+              className="glass h-full p-8 rounded-3xl border border-white/[0.05] hover:border-primary/40 transition-colors duration-300 group relative overflow-hidden"
+            >
+              <div className="absolute top-0 right-0 -mr-8 -mt-8 w-32 h-32 bg-primary/20 blur-3xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-                <div className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center mb-6 text-primary group-hover:scale-110 transition-transform duration-300 shadow-[0_0_15px_transparent] group-hover:shadow-[0_0_15px_rgba(138,43,226,0.3)]">
-                  <DynamicIcon name={service.icon} className="w-7 h-7" />
-                </div>
+              <motion.div
+                whileHover={{ scale: 1.15, rotate: 5 }}
+                transition={{ type: "spring", stiffness: 300 }}
+                className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center mb-6 text-primary group-hover:shadow-[0_0_20px_rgba(138,43,226,0.4)] transition-shadow duration-300"
+              >
+                <DynamicIcon name={service.icon} className="w-7 h-7" />
+              </motion.div>
 
-                <h3 className="text-xl font-bold mb-4 text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-white/70 transition-all">
-                  {service.title}
-                </h3>
-                <p className="text-muted-foreground leading-relaxed">
-                  {service.description}
-                </p>
-              </div>
-            </FadeIn>
+              <h3 className="text-xl font-bold mb-4 text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-white/70 transition-all">
+                {service.title}
+              </h3>
+              <p className="text-muted-foreground leading-relaxed">
+                {service.description}
+              </p>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

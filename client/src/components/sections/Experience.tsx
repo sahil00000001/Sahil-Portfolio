@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import { FadeIn } from "../animations/FadeIn";
 
 const experiences = [
@@ -76,7 +77,13 @@ export function Experience() {
                 }`}
               >
                 {/* Timeline dot */}
-                <div className="absolute left-[-5px] md:left-1/2 md:-ml-[10px] w-5 h-5 rounded-full bg-background border-4 border-primary shadow-[0_0_15px_rgba(138,43,226,0.6)] z-10" />
+                <motion.div
+                  initial={{ scale: 0 }}
+                  whileInView={{ scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
+                  className="absolute left-[-5px] md:left-1/2 md:-ml-[10px] w-5 h-5 rounded-full bg-background border-4 border-primary shadow-[0_0_15px_rgba(138,43,226,0.6)] z-10"
+                />
 
                 <div className="w-full md:w-[45%] pl-8 md:pl-0">
                   <div className="glass p-8 rounded-3xl border border-white/[0.05] hover:border-primary/30 transition-colors relative group overflow-hidden">

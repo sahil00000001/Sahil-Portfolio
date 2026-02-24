@@ -1,5 +1,16 @@
+import { motion } from "framer-motion";
 import { FadeIn } from "../animations/FadeIn";
 import { DynamicIcon } from "../ui/dynamic-icon";
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 16 },
+  show:   { opacity: 1, y: 0, transition: { duration: 0.35, ease: [0.22, 1, 0.36, 1] } },
+};
+
+const containerVariants = {
+  hidden: {},
+  show:   { transition: { staggerChildren: 0.04 } },
+};
 
 const skillGroups = [
   {
@@ -79,13 +90,24 @@ export function Skills() {
 
         <div className="space-y-16">
           {skillGroups.map((group, idx) => (
-            <FadeIn key={group.category} delay={idx * 0.1}>
-              <h3 className="text-xl font-semibold mb-8 text-white/80">{group.category}</h3>
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+            <FadeIn key={group.category} delay={idx * 0.05}>
+              <h3 className="text-xl font-semibold mb-8 text-white/80 flex items-center gap-3">
+                <span className="w-6 h-[2px] bg-gradient-to-r from-primary to-secondary inline-block" />
+                {group.category}
+              </h3>
+              <motion.div
+                variants={containerVariants}
+                initial="hidden"
+                whileInView="show"
+                viewport={{ once: true, margin: "-60px" }}
+                className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4"
+              >
                 {group.skills.map((skill) => (
-                  <div
+                  <motion.div
                     key={skill.name}
-                    className="group glass p-6 rounded-2xl flex flex-col items-center justify-center gap-4 hover:-translate-y-2 hover:bg-white/[0.04] transition-all duration-300 border border-white/[0.05] hover:border-primary/40 relative overflow-hidden"
+                    variants={cardVariants}
+                    whileHover={{ y: -8, scale: 1.04 }}
+                    className="group glass p-6 rounded-2xl flex flex-col items-center justify-center gap-4 border border-white/[0.05] hover:border-primary/40 relative overflow-hidden cursor-default transition-colors duration-200"
                   >
                     <div className="absolute inset-0 bg-gradient-to-b from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     <DynamicIcon
@@ -93,13 +115,12 @@ export function Skills() {
                       className="w-10 h-10 text-muted-foreground group-hover:text-primary transition-colors duration-300 relative z-10"
                     />
                     <span className="font-medium text-sm text-center relative z-10">{skill.name}</span>
-                    <div
-                      className="absolute bottom-0 left-0 h-1 bg-primary/50 transition-all duration-500 opacity-0 group-hover:opacity-100"
-                      style={{ width: `${skill.proficiency}%` }}
-                    />
-                  </div>
+                    {/* Proficiency bar */}
+                    <div className="absolute bottom-0 left-0 h-[2px] bg-gradient-to-r from-primary to-secondary transition-all duration-700 opacity-0 group-hover:opacity-100"
+                      style={{ width: `${skill.proficiency}%` }} />
+                  </motion.div>
                 ))}
-              </div>
+              </motion.div>
             </FadeIn>
           ))}
         </div>
