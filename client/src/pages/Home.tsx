@@ -9,14 +9,16 @@ import { Experience } from "@/components/sections/Experience";
 import { Certifications } from "@/components/sections/Certifications";
 import { Services } from "@/components/sections/Services";
 import { Contact } from "@/components/sections/Contact";
+import { Marquee } from "@/components/effects/Marquee";
 
 export default function Home() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <Navbar />
-      
+
       <main>
         <Hero />
+        <Marquee />
         <About />
         <Education />
         <Skills />

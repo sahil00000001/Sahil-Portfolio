@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, useInView, animate } from "framer-motion";
 import { ArrowRight, Github, Linkedin, Mail, Phone, MapPin, ChevronDown } from "lucide-react";
+import { Particles } from "../effects/Particles";
 
 // ── Typewriter roles ──────────────────────────────────────────────
 const roles = [
@@ -79,32 +80,48 @@ export function Hero() {
   return (
     <section className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
 
+      {/* Aurora gradient sweep — subtle colour-shifting bg */}
+      <div className="absolute inset-0 animate-aurora pointer-events-none" />
+
       {/* Dot grid background */}
       <div className="absolute inset-0 dot-grid opacity-25 pointer-events-none" />
+
+      {/* Floating particle field */}
+      <Particles />
 
       {/* Ambient glow orbs — pure CSS for GPU-smooth animation */}
       <div className="glow-orb orb-pulse w-[45vw] h-[45vw] bg-primary top-[-15%] right-[-15%]" />
       <div className="glow-orb orb-pulse-slow w-[35vw] h-[35vw] bg-secondary bottom-[5%] left-[-10%]" style={{ animationDelay: "2s" }} />
       <div className="glow-orb orb-pulse w-[22vw] h-[22vw] bg-primary top-[40%] left-[28%]" style={{ animationDelay: "4s" }} />
 
-      {/* Floating tech badges (desktop only) — CSS float for smoothness */}
+      {/* Floating tech badges (desktop only)
+          Outer div  → CSS float animation (transform only, no framer conflict)
+          Inner div  → framer-motion opacity fade-in (no transform)           */}
       <div className="absolute inset-0 pointer-events-none hidden xl:block">
         {floatingTags.map((tag, i) => (
-          <motion.div
+          <div
             key={i}
-            initial={{ opacity: 0, scale: 0.7 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: tag.delay + 1.0, duration: 0.4, ease: "easeOut" }}
             style={{
+              position: "absolute",
               right: tag.right,
               top: tag.top,
-              animationDelay: `${tag.delay}s`,
+              animationName: "float",
               animationDuration: `${tag.dur}s`,
+              animationDelay: `${tag.delay}s`,
+              animationTimingFunction: "ease-in-out",
+              animationIterationCount: "infinite",
+              willChange: "transform",
             }}
-            className="absolute glass px-3 py-1.5 rounded-full text-xs font-semibold text-white/60 border border-white/10 backdrop-blur-xl shadow-lg"
           >
-            {tag.label}
-          </motion.div>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: tag.delay + 1.0, duration: 0.6 }}
+              className="glass px-3 py-1.5 rounded-full text-xs font-semibold text-white/60 border border-white/10 backdrop-blur-xl shadow-lg whitespace-nowrap"
+            >
+              {tag.label}
+            </motion.div>
+          </div>
         ))}
       </div>
 

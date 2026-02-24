@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { FadeIn } from "../animations/FadeIn";
 import { DynamicIcon } from "../ui/dynamic-icon";
+import { TiltCard } from "../effects/TiltCard";
 
 const services = [
   {
@@ -66,24 +67,26 @@ export function Services() {
               key={service.id}
               variants={{ hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0, transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] } } }}
               whileHover={{ y: -8 }}
-              className="glass h-full p-8 rounded-3xl border border-white/[0.05] hover:border-primary/40 transition-colors duration-300 group relative overflow-hidden"
+              className="h-full"
             >
-              <div className="absolute top-0 right-0 -mr-8 -mt-8 w-32 h-32 bg-primary/20 blur-3xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <TiltCard className="glass h-full p-8 rounded-3xl border border-white/[0.05] hover:border-primary/40 transition-colors duration-300 group relative overflow-hidden">
+                <div className="absolute top-0 right-0 -mr-8 -mt-8 w-32 h-32 bg-primary/20 blur-3xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-              <motion.div
-                whileHover={{ scale: 1.15, rotate: 5 }}
-                transition={{ type: "spring", stiffness: 300 }}
-                className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center mb-6 text-primary group-hover:shadow-[0_0_20px_rgba(138,43,226,0.4)] transition-shadow duration-300"
-              >
-                <DynamicIcon name={service.icon} className="w-7 h-7" />
-              </motion.div>
+                <motion.div
+                  whileHover={{ scale: 1.15, rotate: 5 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                  className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center mb-6 text-primary group-hover:shadow-[0_0_20px_rgba(138,43,226,0.4)] transition-shadow duration-300"
+                >
+                  <DynamicIcon name={service.icon} className="w-7 h-7" />
+                </motion.div>
 
-              <h3 className="text-xl font-bold mb-4 text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-white/70 transition-all">
-                {service.title}
-              </h3>
-              <p className="text-muted-foreground leading-relaxed">
-                {service.description}
-              </p>
+                <h3 className="text-xl font-bold mb-4 text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-white/70 transition-all">
+                  {service.title}
+                </h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  {service.description}
+                </p>
+              </TiltCard>
             </motion.div>
           ))}
         </motion.div>
