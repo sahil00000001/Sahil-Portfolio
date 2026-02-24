@@ -1,0 +1,189 @@
+\documentclass[letterpaper,11pt]{article}
+
+\usepackage{latexsym}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{marvosym}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage[english]{babel}
+\usepackage{tabularx}
+\usepackage{xcolor}
+\usepackage{fontawesome5}
+
+\input{glyphtounicode}
+
+% -------------------- FONT OPTIONS --------------------
+% sans-serif
+% \usepackage[sfdefault]{roboto}
+% \usepackage[sfdefault]{noto-sans}
+% serif
+% \usepackage{charter}
+
+\pagestyle{fancy}
+\fancyhf{} % clear all header and footer fields
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% Adjust margins
+\addtolength{\oddsidemargin}{-0.5in}
+\addtolength{\evensidemargin}{-0.5in}
+\addtolength{\textwidth}{1in}
+\addtolength{\topmargin}{-0.75in} % Reduce this value to push content down
+\addtolength{\textheight}{1.0in}
+
+\urlstyle{same}
+
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+% Section formatting
+\titleformat{\section}{
+  \vspace{-5pt}\scshape\raggedright\large
+}{}{0em}{}[\color{black}\titlerule \vspace{-5pt}]
+
+% Subsection formatting
+\titleformat{\subsection}{
+  \vspace{-4pt}\scshape\raggedright\large
+}{\hspace{-.15in}}{0em}{}[\color{black}\vspace{-8pt}]
+
+\pdfgentounicode=1
+
+% -------------------- CUSTOM COMMANDS --------------------
+\newcommand{\resumeItem}[1]{
+  \item\small{
+    {#1 \vspace{-2pt}}
+  }
+}
+
+\newcommand{\resumeSubheading}[4]{
+  \vspace{-2pt}\item
+    \begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & #2 \\
+      \textit{\small#3} & \textit{\small #4} \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeSubSubheading}[2]{
+    \item
+    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+      \textit{\small#1} & \textit{\small #2} \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeProjectHeading}[2]{
+    \item
+    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+      \small#1 & #2 \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeSubItem}[1]{\resumeItem{#1}\vspace{-4pt}}
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0.15in, label={}]}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+\newcommand{\resumeItemListStart}{\begin{itemize}}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-5pt}}
+
+\renewcommand\labelitemii{$\vcenter{\hbox{\tiny$\bullet$}}$}
+
+\setlength{\footskip}{4.08003pt}
+
+% -------------------- START OF DOCUMENT --------------------
+\begin{document}
+
+% -------------------- HEADING --------------------
+\vspace{40pt} % Add vertical space to shift the heading down
+\begin{center}
+    \textbf{\Huge \scshape SAHIL VASHISHT} \\ \vspace{8pt}
+    \small 
+    \faIcon{github} \href{https://github.com/sahil00000001}{\underline{Sahil Vashisht}} $|$
+    \faIcon{linkedin} \href{https://www.linkedin.com/in/sahilvashisht00/}{\underline{Sahil Vashisht}} $|$
+    \faIcon{envelope} \href{mailto:vashishtsahil99@gmail.com}{\underline{vashishtsahil99@gmail.com}} $|$
+    \faIcon{phone} 9625107920 $|$
+    \faIcon{map-marker-alt} New Delhi, India
+\end{center}
+
+
+
+% -------------------- EDUCATION --------------------
+\section{Education}
+  \resumeSubHeadingListStart
+  
+    \resumeSubheading
+      {Guru Tegh Bahadur Institute Of Technology}{2024}
+      {BTech Information Technology}{CGPA: 8.47}
+      
+    \resumeSubheading
+      {School Of Excellence sec 22 Dwarka (CBSE)}{2020}
+      {Class 12th}{CGPA: 8.4}
+
+  \resumeSubHeadingListEnd
+
+% -------------------- TECHNICAL SKILLS --------------------
+\section{Technical Skills}
+\begin{itemize}[leftmargin=0.15in, label={}]
+    \small \item{
+     \textbf{Programming Languages}: Java, JavaScript, TypeScript, Python, C++ \\
+     \textbf{Backend Technologies}: ASP.NET Core, ASP.NET MVC, Spring Boot, Spring MVC, Microservices Architecture \\
+     \textbf{Frontend Technologies}: ReactJS, Redux, HTML5, CSS3 \\
+     \textbf{API Development}: RESTful APIs, Web API Development, API Integration \\
+     \textbf{Databases}: MySQL, PostgreSQL, MongoDB, SQL Server (SQL \& NoSQL) \\
+     \textbf{Cloud Platforms}: AWS (EC2, RDS, S3, IAM), Microsoft Azure (Functions, Infrastructure Design) \\
+     \textbf{DevOps \& Tools}: Git, CI/CD Pipelines, Postman, Visual Studio, IntelliJ IDEA \\
+     \textbf{Testing \& Debugging}: Selenium, Postman, REST Assured, Unit Testing \\
+     \textbf{Core Competencies}: Full Stack Development, MVC Architecture, Microservices Design, REST API Development, Cloud-Native Applications, Agile/Scrum Methodology, Database Design, Responsive UI Development \\
+     \textbf{AI/ML Exposure}: Generative AI Concepts, AI Integration in Applications \\
+     \textbf{Soft Skills}: Technical Leadership, Team Management, Cross-functional Collaboration, Problem-Solving, Agile Teamwork
+    }
+\end{itemize}
+
+
+% -------------------- EXPERIENCE --------------------
+\section{Experience}
+
+\resumeSubHeadingListStart
+
+\resumeProjectHeading
+  {\textbf{PodTech} $|$ \footnotesize\emph{Full Stack Developer}}{Jan 2025 -- Present}
+  \resumeItemListStart
+    \resumeItem{Architected and deployed \textbf{10+ RESTful APIs} using \textbf{ASP.NET Core 8} and \textbf{ASP.NET MVC}, implementing efficient CRUD operations and optimizing data flow across enterprise applications.}
+    \resumeItem{Led end-to-end development of \textbf{WLS project} (Westminster Legalisation Services integration), managing a team of \textbf{5 developers} and delivering the complete solution within strict deadlines, ensuring \textbf{100\% on-time delivery}.}
+    \resumeItem{Designed and implemented scalable frontend solutions using \textbf{React} with \textbf{TypeScript} and \textbf{Redux}, creating reusable component libraries and integrating dynamic API-driven data visualization in responsive tables.}
+    \resumeItem{Engineered complex file handling mechanisms and command processors in \textbf{.NET}, streamlining data operations and reducing processing time by \textbf{35\%}.}
+    \resumeItem{Demonstrated strong understanding of \textbf{MVC architecture patterns}, implementing separation of concerns and maintaining clean, maintainable codebases across multiple enterprise projects.}
+    \resumeItem{Collaborated with cross-functional teams in an \textbf{Agile environment}, conducting code reviews, and mentoring junior developers on best practices in \textbf{ASP.NET Core} and \textbf{React development}.}
+  \resumeItemListEnd
+
+\resumeProjectHeading
+  {\textbf{LTIMindtree} $|$ \footnotesize\emph{Software Developer}}{Nov 2024 -- Jan 2025}
+  \resumeItemListStart
+    \resumeItem{Developed \textbf{5+ RESTful APIs} using \textbf{Spring Boot} and \textbf{Java}, optimizing backend systems through code refactoring that reduced API response time by \textbf{20\%}.}
+    \resumeItem{Designed scalable \textbf{database schemas} and query optimization strategies, increasing data processing efficiency by \textbf{30\%} for high-traffic applications.}
+  \resumeItemListEnd
+
+\resumeSubHeadingListEnd
+
+% -------------------- CERTIFICATIONS --------------------
+\section{Certifications}
+\resumeItemListStart
+\resumeItem{\textbf{Camunda Knowledge Badge (BPMN \& DMN)} \textbar{} Camunda Credly \textbar{} 2025}
+\resumeItem{\textbf{Tata GenAI-Powered Data Analytics Simulation} \textbar{} Forage \textbar{} 2025}
+\resumeItem{\textbf{AWS Cloud Practitioner Essentials} \textbar{} AWS Training \& Certification \textbar{} 2025}
+\resumeItemListEnd
+
+
+% -------------------- KEY ACHIEVEMENTS --------------------
+\section{Key Achievements}
+\resumeItemListStart
+\resumeItem{Successfully led and delivered \textbf{WLS enterprise integration project} at PodTech, managing a team of 5 developers and completing the project \textbf{100\% on-time} within strict deadlines.}
+\resumeItem{Architected and deployed \textbf{35+ production-ready RESTful APIs} across ASP.NET Core and Spring Boot platforms, serving thousands of daily requests.}
+\resumeItemListEnd
+
+
+
+\end{document}
