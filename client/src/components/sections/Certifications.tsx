@@ -5,6 +5,11 @@ export function Certifications() {
     { title: "Camunda Knowledge Badge (BPMN & DMN)", issuer: "Camunda Credly", year: "2025" },
     { title: "Tata GenAI-Powered Data Analytics Simulation", issuer: "Forage", year: "2025" },
     { title: "AWS Cloud Practitioner Essentials", issuer: "AWS Training & Certification", year: "2025" },
+    { title: "Practical First Steps with CockroachDB", issuer: "CockroachDB", year: "2024" },
+    { title: "Data Processing Specialist", issuer: "Professional Certification", year: "2024" },
+    { title: "Software Engineer — IT Services", issuer: "Professional Certification", year: "2024" },
+    { title: "Software Development Trainee", issuer: "Professional Certification", year: "2024" },
+    { title: "Certificate of Participation — Namma Yatri Open Mobility Challenge", issuer: "Namma Yatri", year: "2024" },
   ];
 
   return (

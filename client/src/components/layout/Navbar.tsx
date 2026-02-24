@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { Link } from "wouter";
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -13,11 +14,11 @@ export function Navbar() {
   }, []);
 
   const navLinks = [
-    { name: "About", href: "#about" },
-    { name: "Projects", href: "#projects" },
-    { name: "Experience", href: "#experience" },
-    { name: "Services", href: "#services" },
-    { name: "Contact", href: "#contact" },
+    { name: "About", href: "/about" },
+    { name: "Projects", href: "/projects" },
+    { name: "Experience", href: "/experience" },
+    { name: "Services", href: "/services" },
+    { name: "Contact", href: "/contact" },
   ];
 
   return (
@@ -33,30 +34,30 @@ export function Navbar() {
         <div className={`flex items-center justify-between rounded-full px-6 py-3 transition-all duration-300 ${
           scrolled ? "glass-panel shadow-lg" : "bg-transparent"
         }`}>
-          <a href="#" className="text-xl font-bold font-display tracking-wider group">
+          <Link href="/" className="text-xl font-bold font-display tracking-wider group">
             <span className="text-gradient">{"<"}</span>
             <span className="text-white group-hover:text-primary transition-colors">DEV</span>
             <span className="text-gradient">{"/>"}</span>
-          </a>
+          </Link>
           
           <nav className="hidden md:flex items-center space-x-8">
             {navLinks.map((link) => (
-              <a
+              <Link
                 key={link.name}
                 href={link.href}
                 className="text-sm font-medium text-muted-foreground hover:text-white transition-colors duration-200"
               >
                 {link.name}
-              </a>
+              </Link>
             ))}
           </nav>
           
-          <a
-            href="#contact"
+          <Link
+            href="/contact"
             className="hidden md:inline-flex items-center justify-center px-6 py-2.5 rounded-full text-sm font-semibold bg-white/5 hover:bg-white/10 border border-white/10 hover:border-primary/50 text-white transition-all duration-300 hover:shadow-[0_0_20px_rgba(138,43,226,0.3)]"
           >
             Let's Talk
-          </a>
+          </Link>
         </div>
       </div>
     </motion.header>

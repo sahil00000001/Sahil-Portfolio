@@ -38,7 +38,7 @@ export function Hero() {
             <div className="text-xl font-medium text-muted-foreground mt-3">
               Building <span className="text-gradient">Scalable</span>, Modern &amp; Intelligent Software.
             </div>
-          </motion.h1>
+          </motion.div>
 
           <motion.p 
             initial={{ opacity: 0, y: 20 }}

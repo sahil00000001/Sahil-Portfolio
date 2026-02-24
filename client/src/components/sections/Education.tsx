@@ -17,9 +17,10 @@ export function Education() {
               <div>
                 <h3 className="text-xl font-bold">Guru Tegh Bahadur Institute Of Technology</h3>
                 <div className="text-muted-foreground">BTech Information Technology</div>
+                <div className="text-sm text-muted-foreground/70 mt-1">Affiliated to Guru Gobind Singh Indraprastha University</div>
               </div>
               <div className="text-right">
-                <div className="font-mono text-sm text-primary">2024</div>
+                <div className="font-mono text-sm text-primary">Sep 2020 – Mar 2024</div>
                 <div className="text-muted-foreground text-sm">CGPA: 8.47</div>
               </div>
             </div>

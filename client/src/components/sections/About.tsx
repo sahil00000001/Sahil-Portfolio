@@ -20,18 +20,21 @@ export function About() {
                 Engineering the <span className="text-gradient">Future</span>
               </h2>
               <p className="text-muted-foreground text-lg leading-relaxed">
-                I'm a full-stack developer with a passion for building robust, scalable applications that live at the intersection of brilliant design and complex engineering. 
+                Hi, I'm Sahil Vashisht — a passionate Full Stack Developer and Software Engineer with expertise in Java, Spring Boot, ASP.NET Core, and React. Currently building enterprise-grade solutions at PODTECH, Bengaluru.
               </p>
               <p className="text-muted-foreground text-lg leading-relaxed">
-                With expertise in modern web technologies, cloud infrastructure, and AI integrations, I help businesses transform visionary concepts into production-ready software. I believe in writing code that is as clean as the interfaces it powers.
+                I specialize in crafting RESTful APIs, scalable microservices architectures, and cloud-native applications on AWS and Azure. With experience spanning enterprise companies, startups, and founding my own venture, I thrive on solving complex engineering challenges and delivering impactful results — 100% on time.
               </p>
-              
+              <p className="text-muted-foreground text-base leading-relaxed">
+                Beyond code, I'm passionate about tech education — having taught DSA and OOP to undergraduate students at byteXL, mentoring the next generation of engineers.
+              </p>
+
               <div className="grid grid-cols-2 gap-6 pt-6">
                 {[
-                  { value: "5+", label: "Years Experience" },
-                  { value: "50+", label: "Projects Delivered" },
-                  { value: "100%", label: "Client Satisfaction" },
-                  { value: "24/7", label: "Passion for Tech" },
+                  { value: "3+", label: "Years Experience" },
+                  { value: "35+", label: "APIs Deployed" },
+                  { value: "100%", label: "On-time Delivery" },
+                  { value: "7+", label: "Roles & Ventures" },
                 ].map((stat, i) => (
                   <div key={i} className="glass p-4 rounded-xl border border-white/5 hover:border-primary/30 transition-colors">
                     <div className="text-3xl font-bold text-white mb-1">{stat.value}</div>
