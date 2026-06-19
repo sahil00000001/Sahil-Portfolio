@@ -1,90 +1,157 @@
-import { useRef, useEffect } from "react";
-import { motion, useInView, animate } from "framer-motion";
-import { FadeIn } from "../animations/FadeIn";
+import { motion } from "framer-motion";
+import { MapPin, Sparkles } from "lucide-react";
+import { profile, stats } from "@/data/portfolio";
+import { Counter } from "@/components/ui/Counter";
+import { SectionHeading } from "@/components/ui/SectionHeading";
+import { FadeIn } from "@/components/animations/FadeIn";
 
-function Counter({ to, suffix = "" }: { to: number; suffix?: string }) {
-  const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true });
-  useEffect(() => {
-    if (!inView || !ref.current) return;
-    const ctrl = animate(0, to, {
-      duration: 2,
-      ease: "easeOut",
-      onUpdate: (v) => { if (ref.current) ref.current.textContent = Math.floor(v) + suffix; },
-    });
-    return () => ctrl.stop();
-  }, [inView, to, suffix]);
-  return <span ref={ref}>0{suffix}</span>;
-}
+const EASE = [0.22, 1, 0.36, 1] as const;
 
-const stats = [
-  { to: 3,   suffix: "+", label: "Years Experience" },
-  { to: 35,  suffix: "+", label: "APIs Deployed" },
-  { to: 100, suffix: "%", label: "On-time Delivery" },
-  { to: 7,   suffix: "+", label: "Roles & Ventures" },
+const timeline = [
+  { label: profile.now, dot: "bg-primary", ring: "ring-primary/40" },
+  { label: profile.was, dot: "bg-secondary", ring: "ring-secondary/40" },
+  { label: profile.earlier, dot: "bg-muted-foreground", ring: "ring-white/10" },
 ];
+
+const gridParent = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.06, delayChildren: 0.05 } },
+};
+const gridChild = {
+  hidden: { opacity: 0, y: 18 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: EASE } },
+};
 
 export function About() {
   return (
-    <section id="about" className="py-24 relative">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="flex flex-col md:flex-row gap-16 items-center">
+    <section id="about" className="py-24 md:py-32 relative overflow-hidden">
+      {/* ambient glow */}
+      <div className="pointer-events-none absolute -top-24 -left-24 w-96 h-96 glow-orb orb-pulse opacity-40" />
 
-          {/* Image col */}
-          <FadeIn direction="right" className="w-full md:w-1/2">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+
+          {/* ───────────── LEFT: profile card ───────────── */}
+          <FadeIn direction="right" className="w-full">
             <div className="relative group">
-              <div className="absolute inset-0 bg-gradient-to-r from-primary to-secondary rounded-2xl opacity-40 blur-xl rotate-2" />
-              <img
-                src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&q=80"
-                alt="Workspace"
-                className="relative rounded-2xl border border-white/10 shadow-2xl transform transition-transform duration-500 group-hover:-translate-y-2 grayscale-[20%] group-hover:grayscale-0"
-              />
-              {/* Floating badge */}
+              {/* gradient halo behind card */}
+              <div className="absolute -inset-1 bg-gradient-to-br from-primary/40 via-transparent to-secondary/40 rounded-[2rem] blur-2xl opacity-50 group-hover:opacity-70 transition-opacity duration-500" />
+
+              <motion.div
+                whileHover={{ y: -6 }}
+                transition={{ type: "spring", stiffness: 260, damping: 26 }}
+                className="relative glass-strong gradient-border rounded-[2rem] p-8 md:p-10 border border-white/10"
+              >
+                {/* monogram */}
+                <div className="flex items-center gap-5">
+                  <div className="relative shrink-0">
+                    <div className="w-20 h-20 md:w-24 md:h-24 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center shadow-[0_0_40px_-8px_rgba(168,85,247,0.5)]">
+                      <span className="font-display font-bold text-3xl md:text-4xl text-white tracking-tight">
+                        SV
+                      </span>
+                    </div>
+                    <span className="absolute inset-0 rounded-full ring-1 ring-white/20" />
+                  </div>
+                  <div className="min-w-0">
+                    <h3 className="font-display font-bold text-2xl md:text-3xl text-white leading-tight">
+                      {profile.fullName}
+                    </h3>
+                    <p className="text-sm md:text-base text-secondary font-medium mt-1">
+                      {profile.title}
+                    </p>
+                    <p className="flex items-center gap-1.5 text-sm text-muted-foreground mt-2">
+                      <MapPin className="w-3.5 h-3.5 text-primary" />
+                      {profile.location}
+                    </p>
+                  </div>
+                </div>
+
+                {/* divider */}
+                <div className="my-7 h-px bg-gradient-to-r from-transparent via-white/15 to-transparent" />
+
+                {/* mini-timeline */}
+                <ul className="space-y-4">
+                  {timeline.map((row, i) => (
+                    <motion.li
+                      key={i}
+                      initial={{ opacity: 0, x: 12 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true, margin: "-40px" }}
+                      transition={{ duration: 0.5, delay: 0.1 + i * 0.08, ease: EASE }}
+                      className="flex items-start gap-3"
+                    >
+                      <span className={`mt-1.5 w-2.5 h-2.5 shrink-0 rounded-full ${row.dot} ring-4 ${row.ring}`} />
+                      <span className="text-sm text-muted-foreground leading-relaxed">
+                        {row.label}
+                      </span>
+                    </motion.li>
+                  ))}
+                </ul>
+              </motion.div>
+
+              {/* floating badge */}
               <motion.div
                 animate={{ y: [0, -8, 0] }}
                 transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute -bottom-5 -right-5 glass px-4 py-3 rounded-2xl border border-primary/30 shadow-xl"
+                style={{ willChange: "transform" }}
+                className="absolute -bottom-5 -right-3 md:-right-6 glass-strong px-4 py-3 rounded-2xl border border-primary/30 shadow-[0_0_40px_-8px_rgba(168,85,247,0.4)]"
               >
-                <div className="text-2xl font-bold text-white">35<span className="text-primary">+</span></div>
-                <div className="text-xs text-muted-foreground">APIs in Production</div>
+                <div className="flex items-center gap-2.5">
+                  <Sparkles className="w-5 h-5 text-primary" />
+                  <div>
+                    <div className="text-sm font-semibold text-white leading-tight">
+                      Joining Jaish Global Tech
+                    </div>
+                    <div className="text-xs font-mono text-muted-foreground">Jul 2026</div>
+                  </div>
+                </div>
               </motion.div>
             </div>
           </FadeIn>
 
-          {/* Text col */}
-          <FadeIn direction="left" className="w-full md:w-1/2">
-            <div className="space-y-6">
-              <h2 className="text-3xl md:text-5xl font-bold font-display">
-                Engineering the <span className="text-gradient">Future</span>
-              </h2>
-              <p className="text-muted-foreground text-lg leading-relaxed">
-                Hi, I'm Sahil Vashisht — a passionate Full Stack Developer with expertise in Java, Spring Boot, ASP.NET Core, and React. Currently building enterprise-grade solutions at <span className="text-white font-medium">PODTECH, Bengaluru</span>.
-              </p>
-              <p className="text-muted-foreground text-lg leading-relaxed">
-                I specialize in crafting RESTful APIs, scalable microservices, and cloud-native apps on AWS and Azure — delivering impactful results <span className="text-white font-medium">100% on time</span>.
-              </p>
-              <p className="text-muted-foreground text-base leading-relaxed">
-                Beyond code, I teach DSA and OOP to undergrad students and founded my own startup. I believe great software is as clean as it is powerful.
-              </p>
+          {/* ───────────── RIGHT: heading + bio + stats ───────────── */}
+          <div className="w-full">
+            <SectionHeading
+              align="left"
+              kicker="About me"
+              title="Full-stack, with an"
+              accent="AI edge"
+              className="mb-8"
+            />
 
-              {/* Animated stat cards */}
-              <div className="grid grid-cols-2 gap-4 pt-4">
-                {stats.map((s, i) => (
-                  <motion.div
-                    key={i}
-                    whileHover={{ scale: 1.04 }}
-                    transition={{ duration: 0.2 }}
-                    className="glass p-4 rounded-xl border border-white/5 hover:border-primary/30 transition-colors cursor-default"
-                  >
-                    <div className="text-3xl font-bold text-white mb-1">
-                      <Counter to={s.to} suffix={s.suffix} />
-                    </div>
-                    <div className="text-sm text-primary font-medium">{s.label}</div>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-          </FadeIn>
+            <FadeIn direction="left" delay={0.1} className="space-y-5">
+              {profile.bioExtended.map((para, i) => (
+                <p key={i} className="text-muted-foreground leading-relaxed md:text-lg">
+                  {para}
+                </p>
+              ))}
+            </FadeIn>
+
+            {/* 2x2 stat grid */}
+            <motion.div
+              variants={gridParent}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, margin: "-60px" }}
+              className="grid grid-cols-2 gap-4 pt-9"
+            >
+              {stats.map((s, i) => (
+                <motion.div
+                  key={i}
+                  variants={gridChild}
+                  whileHover={{ y: -6 }}
+                  className="glass gradient-border rounded-2xl p-5 border border-white/[0.06] transition-all duration-300 hover:border-primary/40 hover:shadow-[0_0_40px_-8px_rgba(168,85,247,0.35)]"
+                >
+                  <div className="font-display text-3xl md:text-4xl font-bold text-gradient">
+                    <Counter to={s.value} suffix={s.suffix} />
+                  </div>
+                  <div className="text-sm text-muted-foreground mt-1.5 leading-snug">
+                    {s.label}
+                  </div>
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
         </div>
       </div>
     </section>

@@ -8,6 +8,6 @@ interface DynamicIconProps {
 
 export function DynamicIcon({ name, className = "" }: DynamicIconProps) {
   // Try to find the icon dynamically. Fallback to HelpCircle if not found.
-  const Icon = (LucideIcons as Record<string, LucideIcon>)[name] || HelpCircle;
+  const Icon = (LucideIcons as unknown as Record<string, LucideIcon>)[name] || HelpCircle;
   return <Icon className={className} />;
 }
