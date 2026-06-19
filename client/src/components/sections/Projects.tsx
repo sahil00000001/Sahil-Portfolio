@@ -1,113 +1,136 @@
-import { FadeIn } from "../animations/FadeIn";
-import { Github, ExternalLink } from "lucide-react";
+import { motion } from "framer-motion";
+import { Link } from "wouter";
+import { ArrowRight } from "lucide-react";
+import { projects } from "@/data/portfolio";
+import { SectionHeading } from "@/components/ui/SectionHeading";
+import { DynamicIcon } from "@/components/ui/dynamic-icon";
 
-const projects = [
-  {
-    id: 1,
-    title: "WLS Enterprise Integration",
-    description: "Led a team of 5 developers to architect and deliver the Westminster Legalisation Services integration at PodTech. Deployed 10+ RESTful APIs using ASP.NET Core 8 and ASP.NET MVC, ensuring 100% on-time delivery. Built a scalable React + TypeScript + Redux frontend with API-driven data visualization.",
-    imageUrl: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80",
-    technologies: ["ASP.NET Core 8", "ASP.NET MVC", "React", "TypeScript", "Redux", "SQL Server"],
-    liveUrl: null,
-    githubUrl: null,
-  },
-  {
-    id: 2,
-    title: "Real-Time News Platform",
-    description: "Full-stack news website for Universal Justice Times with real-time news fetching via the News API. Built a custom API to transfer and store data in a private database, automating nightly updates and eliminating real-time news sourcing costs entirely.",
-    imageUrl: "https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=800&q=80",
-    technologies: ["HTML", "CSS", "JavaScript", "TypeScript", "Node.js", "MySQL", "News API"],
-    liveUrl: null,
-    githubUrl: "https://github.com/sahil00000001",
-  },
-  {
-    id: 3,
-    title: "Interactive Education Platform",
-    description: "Led development of an interactive video module at Pepcoding for seamless student-teacher interaction. Integrated timestamps increasing video engagement by 25%, spiked student enthusiasm by 40%, and triggered a 50% surge in product sales. Added a tagging system to streamline TA doubt resolution.",
-    imageUrl: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&q=80",
-    technologies: ["Next.js", "JavaScript", "HTML", "CSS", "MySQL", "Bootstrap", "TailwindCSS"],
-    liveUrl: null,
-    githubUrl: "https://github.com/sahil00000001",
-  },
-  {
-    id: 4,
-    title: "Atlas Sports Labs — Booking Platform",
-    description: "Founded and built a sports ground and equipment rental platform focused on affordability, authenticity, and accountability. Features transparent facility access with local connectivity insights, food options, parking info, and special discounts for schools and students.",
-    imageUrl: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&q=80",
-    technologies: ["React", "Node.js", "MySQL", "JavaScript"],
-    liveUrl: null,
-    githubUrl: "https://github.com/sahil00000001",
-  },
-  {
-    id: 5,
-    title: "Production-Ready RESTful API Suite",
-    description: "Architected and deployed 35+ production-ready RESTful APIs across ASP.NET Core and Spring Boot platforms serving thousands of daily requests. Optimized response times by 20% and improved data processing efficiency by 30% through code refactoring and schema optimization.",
-    imageUrl: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&q=80",
-    technologies: ["Spring Boot", "Java", "ASP.NET Core", "SQL Server", "PostgreSQL", "MySQL"],
-    liveUrl: null,
-    githubUrl: "https://github.com/sahil00000001",
-  },
-];
+const EASE = [0.22, 1, 0.36, 1] as const;
+
+const gridVariants = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.08, delayChildren: 0.05 } },
+};
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 24 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: EASE } },
+};
 
 export function Projects() {
+  const featured = projects.filter((p) => p.featured);
+
   return (
-    <section id="projects" className="py-32 relative">
-      <div className="max-w-7xl mx-auto px-6">
-        <FadeIn className="mb-16">
-          <h2 className="text-3xl md:text-5xl font-bold font-display mb-4">
-            Featured <span className="text-gradient">Work</span>
-          </h2>
-          <p className="text-muted-foreground max-w-2xl">
-            A selection of complex challenges I've solved through elegant code and architecture.
-          </p>
-        </FadeIn>
+    <section id="projects" className="py-24 md:py-32 relative overflow-hidden bg-black/20">
+      {/* ambient orbs */}
+      <div className="absolute top-1/4 -left-32 w-[32rem] h-[32rem] rounded-full bg-primary/10 blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-0 -right-32 w-[32rem] h-[32rem] rounded-full bg-secondary/10 blur-[120px] pointer-events-none" />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {projects.map((project, idx) => (
-            <FadeIn key={project.id} delay={idx * 0.1} className="group">
-              <div className="glass rounded-3xl overflow-hidden border border-white/[0.05] hover:border-primary/30 transition-all duration-500 h-full flex flex-col">
-                {/* Image Container */}
-                <div className="relative h-64 overflow-hidden">
-                  <div className="absolute inset-0 bg-primary/20 mix-blend-overlay z-10 group-hover:opacity-0 transition-opacity duration-500" />
-                  <img
-                    src={project.imageUrl}
-                    alt={project.title}
-                    className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
-                  />
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
+        <SectionHeading
+          kicker="Selected work"
+          title="Featured"
+          accent="Projects"
+          subtitle="Enterprise platforms, automation pipelines, and a measurable AI win."
+        />
 
-                  {/* Hover Overlay with links */}
-                  <div className="absolute inset-0 bg-background/80 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4 z-20">
-                    {project.liveUrl && (
-                      <a href={project.liveUrl} target="_blank" rel="noreferrer" className="w-12 h-12 rounded-full bg-primary flex items-center justify-center text-white hover:scale-110 transition-transform shadow-[0_0_20px_rgba(138,43,226,0.5)]">
-                        <ExternalLink className="w-5 h-5" />
-                      </a>
-                    )}
-                    {project.githubUrl && (
-                      <a href={project.githubUrl} target="_blank" rel="noreferrer" className="w-12 h-12 rounded-full glass border border-white/20 flex items-center justify-center text-white hover:scale-110 hover:border-white transition-all">
-                        <Github className="w-5 h-5" />
-                      </a>
-                    )}
+        <motion.div
+          variants={gridVariants}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-60px" }}
+          className="grid grid-cols-1 md:grid-cols-2 gap-7"
+        >
+          {featured.map((project) => (
+            <motion.article
+              key={project.slug}
+              variants={cardVariants}
+              whileHover={{ y: -6 }}
+              className="group relative glass gradient-border shine rounded-3xl overflow-hidden border border-white/[0.06] transition-all duration-300 hover:border-primary/40 hover:shadow-[0_0_40px_-8px_rgba(168,85,247,0.35)] h-full flex flex-col"
+            >
+              {/* Gradient / icon cover */}
+              <div className="relative h-44 overflow-hidden">
+                <div className={`absolute inset-0 bg-gradient-to-br ${project.accent} opacity-90`} />
+                <div className="absolute inset-0 dot-grid opacity-[0.18] mix-blend-overlay" />
+                {/* glow icon */}
+                <motion.div
+                  aria-hidden
+                  className="absolute -bottom-6 -right-4 text-white/15"
+                  initial={{ rotate: -8 }}
+                  whileHover={{ rotate: 0, scale: 1.05 }}
+                  transition={{ type: "spring", stiffness: 260, damping: 26 }}
+                >
+                  <DynamicIcon name={project.icon} className="w-40 h-40" />
+                </motion.div>
+                {/* foreground icon + category */}
+                <div className="absolute inset-0 p-6 flex flex-col justify-between">
+                  <div className="w-12 h-12 rounded-2xl glass-strong border border-white/20 flex items-center justify-center text-white shadow-lg">
+                    <DynamicIcon name={project.icon} className="w-6 h-6" />
                   </div>
+                  <span className="self-start px-3 py-1 rounded-full bg-black/30 backdrop-blur-sm border border-white/20 text-[11px] font-mono font-semibold uppercase tracking-[0.15em] text-white">
+                    {project.category}
+                  </span>
                 </div>
+                {/* fade into card body */}
+                <div className="absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-background/80 to-transparent" />
+              </div>
 
-                {/* Content */}
-                <div className="p-8 flex-1 flex flex-col">
-                  <h3 className="text-2xl font-bold mb-3 group-hover:text-primary transition-colors">{project.title}</h3>
-                  <p className="text-muted-foreground mb-6 flex-1 line-clamp-3">
-                    {project.description}
-                  </p>
-                  <div className="flex flex-wrap gap-2 mt-auto">
-                    {project.technologies.map(tech => (
-                      <span key={tech} className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-medium text-white/80">
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
+              {/* Content */}
+              <div className="p-7 flex-1 flex flex-col">
+                <div className="flex items-center gap-2 mb-2 text-xs font-mono text-secondary">
+                  <span className="w-1.5 h-1.5 rounded-full bg-secondary" />
+                  {project.org}
+                </div>
+                <h3 className="text-xl font-bold font-display text-white mb-1 group-hover:text-primary transition-colors">
+                  {project.name}
+                </h3>
+                <p className="text-sm text-primary/90 mb-3">{project.tagline}</p>
+                <p className="text-sm text-muted-foreground leading-relaxed mb-5 line-clamp-3">
+                  {project.summary}
+                </p>
+
+                {/* Top 3 highlights */}
+                <ul className="space-y-2 mb-6">
+                  {project.highlights.slice(0, 3).map((h, i) => (
+                    <li key={i} className="flex items-start gap-2 text-sm text-muted-foreground/90">
+                      <span className="text-primary mt-0.5 select-none">▸</span>
+                      <span>{h}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                {/* Tech chips */}
+                <div className="flex flex-wrap gap-2 mt-auto">
+                  {project.tech.map((tech) => (
+                    <span
+                      key={tech}
+                      className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-medium text-white/80"
+                    >
+                      {tech}
+                    </span>
+                  ))}
                 </div>
               </div>
-            </FadeIn>
+            </motion.article>
           ))}
-        </div>
+        </motion.div>
+
+        {/* View all */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-40px" }}
+          transition={{ duration: 0.6, ease: EASE }}
+          className="flex justify-center mt-14"
+        >
+          <Link
+            href="/projects"
+            className="group inline-flex items-center gap-2 px-7 py-3 rounded-full text-sm font-semibold bg-white/5 hover:bg-white/10 border border-white/10 hover:border-primary/50 text-white transition-all duration-300 hover:scale-[1.04] active:scale-95 hover:shadow-[0_0_24px_rgba(138,43,226,0.3)]"
+          >
+            View all projects
+            <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+          </Link>
+        </motion.div>
       </div>
     </section>
   );

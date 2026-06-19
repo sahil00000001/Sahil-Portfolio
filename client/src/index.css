@@ -30,6 +30,7 @@
 
     --font-sans: 'Plus Jakarta Sans', sans-serif;
     --font-display: 'Outfit', sans-serif;
+    --font-mono: 'JetBrains Mono', 'Geist Mono', monospace;
   }
 
   body {
@@ -191,3 +192,121 @@
   50%       { transform: translateY(-7px)  translateX(-7px); }
   75%       { transform: translateY(-20px) translateX(3px); }
 }
+
+/* ─────────────────────────────────────────────────────────────
+   PREMIUM ANIMATION UTILITIES (shared across all sections)
+   GPU-composited (transform/opacity only) for buttery-smooth 60fps
+   ───────────────────────────────────────────────────────────── */
+
+/* Stronger glass for elevated cards */
+.glass-strong {
+  @apply bg-white/[0.04] backdrop-blur-2xl border border-white/[0.1] shadow-[0_12px_48px_0_rgba(0,0,0,0.45)];
+}
+
+/* Animated gradient text — slow shimmer through the palette */
+@keyframes text-gradient-pan {
+  0%, 100% { background-position: 0% 50%; }
+  50%       { background-position: 100% 50%; }
+}
+.text-gradient-animate {
+  background-image: linear-gradient(90deg,
+    hsl(280 100% 65%), hsl(320 90% 62%), hsl(190 100% 55%), hsl(280 100% 65%));
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: text-gradient-pan 6s ease infinite;
+}
+
+/* Gradient hairline border on hover (uses mask trick) */
+.gradient-border {
+  position: relative;
+}
+.gradient-border::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, hsl(var(--primary) / 0.6), transparent 40%, transparent 60%, hsl(var(--secondary) / 0.5));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+.gradient-border:hover::before { opacity: 1; }
+
+/* Shine sweep across a card on hover */
+.shine {
+  position: relative;
+  overflow: hidden;
+}
+.shine::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(100deg, transparent, rgba(255,255,255,0.08), transparent);
+  transform: skewX(-18deg);
+  transition: left 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+}
+.shine:hover::after { left: 140%; }
+
+/* Reverse marquee */
+@keyframes marquee-reverse {
+  from { transform: translateX(-50%); }
+  to   { transform: translateX(0); }
+}
+.animate-marquee-reverse {
+  animation: marquee-reverse 32s linear infinite;
+  will-change: transform;
+}
+
+/* Conic spin for badges / rings */
+@keyframes conic-spin { to { transform: rotate(1turn); } }
+.animate-conic { animation: conic-spin 8s linear infinite; }
+
+/* Soft pulse-grow for "live" dots / pills */
+@keyframes soft-pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50%       { transform: scale(1.12); opacity: 0.75; }
+}
+.animate-soft-pulse { animation: soft-pulse 2.4s ease-in-out infinite; }
+
+/* Animated dashed connector for pipeline / workflow diagrams */
+@keyframes dash-flow { to { stroke-dashoffset: -16; } }
+.animate-dash-flow { animation: dash-flow 0.9s linear infinite; }
+
+/* Edge-fade mask helper for marquees / horizontal scrollers */
+.mask-fade-x {
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+}
+
+/* Linear grid backdrop (subtler than dot-grid, for section bands) */
+.bg-line-grid {
+  background-image:
+    linear-gradient(to right, rgba(255,255,255,0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255,255,255,0.04) 1px, transparent 1px);
+  background-size: 56px 56px;
+}
+
+/* Accessibility: honor reduced-motion globally for infinite/cosmetic anims */
+@media (prefers-reduced-motion: reduce) {
+  .orb-pulse, .orb-pulse-slow, .animate-blink, .animate-shimmer, .animate-float,
+  .animate-float-slow, .animate-float-fast, .animate-spin-slow, .animate-spin-slower,
+  .animate-glow, .animate-aurora, .animate-marquee, .animate-marquee-reverse,
+  .animate-conic, .animate-soft-pulse, .animate-dash-flow, .text-gradient-animate {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+  }
+  html { scroll-behavior: auto; }
+}
+
+/* Smooth anchor scrolling */
+html { scroll-behavior: smooth; }
