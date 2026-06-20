@@ -78,12 +78,10 @@ export default function AboutPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, ease: EASE }}
             >
-              {/* Was → Now badge */}
+              {/* Current role badge */}
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass border border-primary/30 mb-7 max-w-full">
-                <span className="w-2 h-2 rounded-full bg-primary animate-pulse shrink-0" />
+                <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse shrink-0" />
                 <span className="text-xs sm:text-sm font-mono text-white/80">
-                  {profile.was}
-                  <span className="text-primary mx-1.5">→</span>
                   {profile.now}
                 </span>
               </div>

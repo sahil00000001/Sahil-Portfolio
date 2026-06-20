@@ -22,6 +22,7 @@ export function Experience() {
           <div className="space-y-12 md:space-y-20">
             {experiences.map((exp, idx) => {
               const flip = idx % 2 === 0;
+              const highlight = exp.upcoming || exp.current;
               return (
                 <motion.div
                   key={exp.company}
@@ -40,7 +41,7 @@ export function Experience() {
                     viewport={{ once: true, margin: "-80px" }}
                     transition={{ duration: 0.4, ease: EASE, delay: 0.15 }}
                     className={`absolute left-[-6px] top-2 md:top-auto md:left-1/2 md:-ml-[9px] w-[18px] h-[18px] rounded-full bg-background border-4 z-10 ${
-                      exp.upcoming
+                      highlight
                         ? "border-primary shadow-[0_0_18px_rgba(168,85,247,0.7)] animate-soft-pulse"
                         : "border-primary/80 shadow-[0_0_15px_rgba(138,43,226,0.55)]"
                     }`}
@@ -50,7 +51,7 @@ export function Experience() {
                   <div className="w-full md:w-[46%] pl-8 md:pl-0">
                     <div
                       className={`glass rounded-3xl border overflow-hidden relative group transition-all duration-300 hover:-translate-y-1.5 ${
-                        exp.upcoming
+                        highlight
                           ? "border-primary/40 hover:border-primary/60 hover:shadow-[0_0_40px_-8px_rgba(168,85,247,0.45)]"
                           : "border-white/[0.06] hover:border-primary/40 hover:shadow-[0_0_40px_-8px_rgba(168,85,247,0.3)]"
                       }`}

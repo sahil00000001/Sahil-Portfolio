@@ -2,7 +2,7 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { motion } from "framer-motion";
 import { FolderGit2, Star } from "lucide-react";
-import { projects, profile } from "@/data/portfolio";
+import { projects, profile, projectMetrics } from "@/data/portfolio";
 import { FadeIn } from "@/components/animations/FadeIn";
 import { Counter } from "@/components/ui/Counter";
 import { DynamicIcon } from "@/components/ui/dynamic-icon";
@@ -48,6 +48,34 @@ function ProjectCover({ project }: { project: Project }) {
           </span>
         </div>
       </div>
+    </div>
+  );
+}
+
+// ── Per-project metric strip (numbers build trust) ───────────────────────────
+function ProjectMetricStrip({ slug }: { slug: string }) {
+  const metrics = projectMetrics[slug];
+  if (!metrics || metrics.length === 0) return null;
+
+  return (
+    <div className="grid grid-flow-col auto-cols-fr rounded-2xl glass-strong border border-white/10 divide-x divide-white/10 mb-6 overflow-hidden">
+      {metrics.map((m, i) => (
+        <motion.div
+          key={i}
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-40px" }}
+          transition={{ duration: 0.5, delay: 0.05 + i * 0.08, ease: EASE }}
+          className="px-4 py-4 text-center flex flex-col items-center justify-center"
+        >
+          <span className="text-2xl md:text-3xl font-bold font-display text-gradient leading-none">
+            <Counter to={m.value} suffix={m.suffix ?? ""} />
+          </span>
+          <span className="mt-2 text-[11px] font-mono uppercase tracking-[0.1em] text-muted-foreground leading-tight">
+            {m.label}
+          </span>
+        </motion.div>
+      ))}
     </div>
   );
 }
@@ -143,6 +171,9 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
         <p className="text-primary/90 text-lg mb-4">{project.tagline}</p>
         <p className="text-muted-foreground leading-relaxed mb-6">{project.summary}</p>
 
+        {/* Metric strip — prominent stat cells near the top of the row */}
+        <ProjectMetricStrip slug={project.slug} />
+
         {/* All highlights */}
         <ul className="space-y-2.5 mb-6">
           {project.highlights.map((h, i) => (
@@ -212,7 +243,7 @@ export default function ProjectsPage() {
               </p>
             </FadeIn>
 
-            {/* Honest stat row */}
+            {/* Honest stat row — animated counters */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -223,12 +254,14 @@ export default function ProjectsPage() {
               {heroStats.map((s) => (
                 <div
                   key={s.label}
-                  className="glass px-6 py-4 rounded-2xl border border-white/[0.06] min-w-[9rem]"
+                  className="glass px-6 py-4 rounded-2xl border border-white/[0.06] min-w-[9rem] transition-colors duration-300 hover:border-primary/30"
                 >
-                  <div className="text-2xl font-bold font-display text-white">
+                  <div className="text-3xl font-bold font-display text-gradient leading-none">
                     <Counter to={s.value} suffix={s.suffix} />
                   </div>
-                  <div className="text-xs text-muted-foreground mt-1">{s.label}</div>
+                  <div className="text-xs text-muted-foreground mt-2 font-mono uppercase tracking-[0.1em]">
+                    {s.label}
+                  </div>
                 </div>
               ))}
             </motion.div>

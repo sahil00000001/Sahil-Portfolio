@@ -1,10 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense, lazy } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, Github, Linkedin, Globe, Phone, MapPin, ChevronDown } from "lucide-react";
 import { Link } from "wouter";
-import { Particles } from "../effects/Particles";
 import { Counter } from "@/components/ui/Counter";
 import { profile, stats, heroFloatingTags, socials } from "@/data/portfolio";
+
+// Three.js backdrop is code-split so the `three` chunk never blocks first paint.
+const HeroCanvas = lazy(() => import("../effects/HeroCanvas"));
 
 // ── Standard expo-out easing (per design contract) ────────────────
 const EASE = [0.22, 1, 0.36, 1] as const;
@@ -64,8 +66,12 @@ export function Hero() {
       {/* Dot grid background */}
       <div className="absolute inset-0 dot-grid opacity-25 pointer-events-none" />
 
-      {/* Floating particle field */}
-      <Particles />
+      {/* Three.js interactive crystal + particle galaxy (lazy, GPU-composited) */}
+      <Suspense fallback={null}>
+        <div className="absolute inset-0 z-0 opacity-90">
+          <HeroCanvas />
+        </div>
+      </Suspense>
 
       {/* Ambient glow orbs — pure CSS for GPU-smooth animation */}
       <div className="glow-orb orb-pulse w-[45vw] h-[45vw] bg-primary top-[-15%] right-[-15%]" />

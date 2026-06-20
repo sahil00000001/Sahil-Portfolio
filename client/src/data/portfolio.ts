@@ -26,9 +26,9 @@ export const profile = {
   googleDevHandle: "g.dev/SahilVashisht",
   availability: "Open to opportunities · Bangalore, India",
 
-  now: "Senior Software Developer / AI Developer @ Jaish Global Tech (joining July 1, 2026)",
-  was: "Full Stack Developer @ PodTech (UK-based startup) — Bangalore",
-  earlier: "LDMI · brief stint at LTIMindtree · early React/Redux CRM work",
+  now: "Full Stack Developer @ PodTech (UK-based startup) — Bangalore",
+  was: "LDMI · brief stint at LTIMindtree",
+  earlier: "Early React/Redux CRM work",
   education: "B.Tech, Computer Science — GGSIPU, Delhi",
 
   // Typewriter roles for the hero
@@ -71,6 +71,56 @@ export const stats: Stat[] = [
   { value: 8, suffix: "+", label: "Certifications earned" },
   { value: 2, suffix: " yrs", label: "Professional experience" },
 ];
+
+// ── "By the Numbers" — impact metrics (numbers build trust) ──────────────────
+export interface ImpactMetric {
+  value: number;
+  suffix: string;
+  prefix?: string;
+  label: string;
+  icon: string;
+}
+export const impactMetrics: ImpactMetric[] = [
+  { value: 4500, suffix: "+", label: "Recruiter contacts automated", icon: "Users" },
+  { value: 80, suffix: "+", label: "JSON batches processed", icon: "Boxes" },
+  { value: 27, suffix: "%", label: "LLM token-cost reduction", icon: "TrendingDown" },
+  { value: 108, suffix: "", label: "Targeted leads generated", icon: "Target" },
+  { value: 6, suffix: "", label: "Problem-solving case studies", icon: "Lightbulb" },
+  { value: 8, suffix: "+", label: "Certifications earned", icon: "Award" },
+  { value: 2, suffix: "", label: "Enterprise products shipped", icon: "Server" },
+  { value: 10, suffix: "+", label: "Production features delivered", icon: "Rocket" },
+];
+
+// ── Per-project metric chips (keyed by project slug) ─────────────────────────
+export interface ProjectMetric {
+  value: number;
+  suffix?: string;
+  label: string;
+}
+export const projectMetrics: Record<string, ProjectMetric[]> = {
+  yondrone: [
+    { value: 6, label: "features shipped" },
+    { value: 4, suffix: "-colour", label: "compliance scale" },
+    { value: 0, label: "backend changes" },
+  ],
+  "clover-connect": [
+    { value: 4, label: "features shipped" },
+    { value: 6, label: "Zoom issues documented" },
+  ],
+  "linkedin-outreach": [
+    { value: 4500, suffix: "+", label: "contacts" },
+    { value: 80, suffix: "+", label: "JSON batches" },
+  ],
+  "claude-code-poc": [
+    { value: 27, suffix: "%", label: "token-cost cut" },
+  ],
+  "botec-leadgen": [
+    { value: 2, label: "product lines" },
+  ],
+  "automation-outreach": [
+    { value: 108, label: "targeted leads" },
+  ],
+};
 
 // ── Hero floating tech badges ─────────────────────────────────────────────────
 export const heroFloatingTags = [
@@ -197,6 +247,7 @@ export interface ExperienceItem {
   location: string;
   type: string;
   upcoming?: boolean;
+  current?: boolean;
   accent: string; // tailwind gradient e.g. "from-primary to-secondary"
   description: string;
   bullets: string[];
@@ -205,28 +256,13 @@ export interface ExperienceItem {
 
 export const experiences: ExperienceItem[] = [
   {
-    company: "Jaish Global Tech",
-    role: "Senior Software Developer / AI Developer",
-    period: "Joining Jul 1, 2026",
-    location: "India",
-    type: "Upcoming",
-    upcoming: true,
-    accent: "from-primary to-secondary",
-    description:
-      "Incoming senior full-stack + AI role — an offer landed directly through my own LinkedIn recruiter-outreach automation pipeline.",
-    bullets: [
-      "Senior Software Developer / AI Developer position starting July 1, 2026.",
-      "Offer secured via a self-built scraper → n8n → personalized-email pipeline.",
-    ],
-    tech: ["Full Stack", "AI / LLM", "Automation"],
-  },
-  {
     company: "PodTech",
     role: "Full Stack Developer",
-    period: "2025 – 2026",
+    period: "May 2025 – Present",
     location: "Bangalore, India (UK-based startup)",
-    type: "Full-time",
-    accent: "from-violet-500 to-fuchsia-500",
+    type: "Current",
+    current: true,
+    accent: "from-primary to-secondary",
     description:
       "Shipped production features across two enterprise products — YondrOne (global data-center operations) and Clover Connect (video collaboration) — spanning React/TypeScript front ends, Node.js back ends, data visualization, and n8n automation. Collaborated daily across the UK ↔ Bangalore timezone.",
     bullets: [
@@ -440,12 +476,12 @@ export const projects: Project[] = [
     accent: "from-rose-500 to-orange-400",
     tagline: "End-to-End Recruiter Outreach Automation",
     summary:
-      "A full LinkedIn scraper → n8n → personalized-email pipeline that automated recruiter outreach at scale — and directly landed my next job offer.",
+      "A full LinkedIn scraper → n8n → personalized-email pipeline that automated recruiter outreach at scale — and generated real interview callbacks.",
     highlights: [
       "4,500+ unique recruiter contacts across 80+ JSON batches",
       "Per-category personalization (AI/ML, Full Stack, Backend, Automation) in a clean black-and-white HTML email",
       "n8n handled dedup, category routing, rate limiting, scheduling, error handling and logging",
-      "Multiple interview callbacks — directly contributed to landing the Jaish Global Tech offer",
+      "Generated multiple interview callbacks across AI/ML, full-stack and automation roles",
     ],
     tech: ["n8n", "Node.js", "LinkedIn scraping", "HTML email"],
     featured: true,
