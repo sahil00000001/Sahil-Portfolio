@@ -8,7 +8,7 @@ import { Briefcase, MapPin } from "lucide-react";
 const EASE = [0.22, 1, 0.36, 1] as const;
 
 const heroStats = [
-  { value: "5", label: "roles & ventures" },
+  { value: String(experiences.length), label: "professional roles" },
   { value: "~2 yrs", label: "professional experience" },
   { value: "UK ↔ Bangalore", label: "cross-timezone work" },
 ];
@@ -99,7 +99,7 @@ export default function ExperiencePage() {
                       viewport={{ once: true, margin: "-80px" }}
                       transition={{ duration: 0.4, ease: EASE, delay: idx * 0.06 + 0.15 }}
                       className={`absolute left-[14px] sm:left-[15px] top-9 w-[18px] h-[18px] rounded-full bg-background border-4 z-10 ${
-                        exp.upcoming
+                        exp.upcoming || exp.current
                           ? "border-primary shadow-[0_0_18px_rgba(168,85,247,0.7)] animate-soft-pulse"
                           : "border-primary/80 shadow-[0_0_15px_rgba(138,43,226,0.55)]"
                       }`}
@@ -107,15 +107,15 @@ export default function ExperiencePage() {
 
                     <div
                       className={`glass rounded-3xl border overflow-hidden relative group transition-all duration-300 hover:-translate-y-1.5 ${
-                        exp.upcoming
+                        exp.upcoming || exp.current
                           ? "border-primary/40 hover:border-primary/60 hover:shadow-[0_0_44px_-8px_rgba(168,85,247,0.5)]"
                           : "border-white/[0.06] hover:border-primary/40 hover:shadow-[0_0_44px_-8px_rgba(168,85,247,0.3)]"
                       }`}
                     >
-                      {/* "Next" ribbon for the upcoming role */}
-                      {exp.upcoming && (
+                      {/* Status ribbon */}
+                      {(exp.upcoming || exp.current) && (
                         <div className="absolute top-4 right-[-34px] rotate-45 bg-gradient-to-r from-primary to-secondary text-[11px] font-mono font-bold text-white px-10 py-1 shadow-lg z-20">
-                          NEXT
+                          {exp.upcoming ? "NEXT" : "NOW"}
                         </div>
                       )}
 
@@ -129,7 +129,7 @@ export default function ExperiencePage() {
                           <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-4">
                             <div>
                               <div className="flex flex-wrap items-center gap-2 mb-2">
-                                {exp.upcoming ? (
+                                {(exp.upcoming || exp.current) ? (
                                   <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/15 border border-primary/40 text-xs font-mono font-semibold text-primary animate-soft-pulse shadow-[0_0_20px_-4px_rgba(168,85,247,0.6)]">
                                     <span className="w-1.5 h-1.5 rounded-full bg-primary inline-block" />
                                     {exp.type}

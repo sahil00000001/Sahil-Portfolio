@@ -100,9 +100,9 @@ export function About() {
                   <Sparkles className="w-5 h-5 text-primary" />
                   <div>
                     <div className="text-sm font-semibold text-white leading-tight">
-                      Joining Jaish Global Tech
+                      Currently @ PodTech
                     </div>
-                    <div className="text-xs font-mono text-muted-foreground">Jul 2026</div>
+                    <div className="text-xs font-mono text-muted-foreground">Bangalore · UK startup</div>
                   </div>
                 </div>
               </motion.div>
